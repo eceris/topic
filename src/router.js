@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/Home'
+import Todo from './components/Todo/Todo'
+import Topics from './components/Topic/Topics'
+import Topic from './components/Topic/Topic'
+import About from './views/About'
 
 Vue.use(Router)
 
@@ -12,6 +16,21 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/todo',
+      name: 'todo',
+      component: Todo
+    },
+    {
+      path: '/topics',
+      name: 'topics',
+      component: Topics
+    },
+    {
+      path: '/topic/:topicId',
+      name: 'topic',
+      component: Topic
     },
     {
       path: '/about',
