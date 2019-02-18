@@ -1,12 +1,35 @@
 <template>
   <div id="topic">
-    <img v-for="item in items" :key="item.id" v-bind:src="item.thumbnail" style="width: 100px;margin:5px;"/>
+    <img v-for="item in items" :key="item.id" v-bind:src="item.thumbnail" v-on:click="show" style="width: 100px;margin:5px;"/>
+
+    <modal v-if="showModal" @close="showModal = true">
+      <h3 slot="header">경고</h3>
+      <span slot="footer" @click="showModal = false">할 일을 입력하세요.
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from '../common/Modal.vue'
+
 export default {
   name: 'topic',
+  components: {
+    Modal: Modal
+  },
+  methods: {
+    show () {
+      if (this.newTodoItem !== '') {
+        var value = this.newTodoItem && this.newTodoItem.trim()
+        this.$emit('addTodo', value)
+        this.clearInput()
+      } else {
+        this.showModal = !this.showModal
+      }
+    }
+  },
   data: function () {
     return {
       items: [
